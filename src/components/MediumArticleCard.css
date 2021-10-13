@@ -99,6 +99,7 @@
   font-weight: 600;
   text-decoration: none;
   color: var(--color-action);
+  margin-left: 4px;
 }
 
 .card-date {
@@ -119,7 +120,7 @@
   opacity: 1;
 }
 
-medium-category-chips {
+.card-category {
   margin-top: auto;
 }
 

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import "./Main.css";
 import { MediumArticles } from "./components/MediumArticles";
+import { MediumHeader } from "./components/MediumHeader";
 import { getRssFeed, RssFeed } from "./services/medium-feed";
 
 interface MainProps {
@@ -25,6 +26,9 @@ export const Main: FC<MainProps> = ({ username, hideHeader, maxArticles }) => {
 
   return (
     <div id="medium-portfolio-app">
+      {!hideHeader && (
+        <MediumHeader title={rssFeed.feed.title} image={rssFeed.feed.image} />
+      )}
       <MediumArticles articles={rssFeed.articles} />
     </div>
   );

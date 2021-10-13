@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { Article } from "../services/medium-feed";
+import { MediumCategoryChips } from "./MediumCategoryChips";
+
 import "./MediumArticleCard.css";
 
 interface MediumArticleCardProps {
@@ -27,6 +29,8 @@ export const MediumArticleCard: FC<MediumArticleCardProps> = ({ article }) => {
             {article.title}
           </a>
         </div>
+
+        <MediumCategoryChips categories={article.categories} />
 
         <div className="card-footer">
           <span>by</span>
