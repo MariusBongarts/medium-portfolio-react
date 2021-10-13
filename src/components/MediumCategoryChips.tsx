@@ -10,8 +10,8 @@ export const MediumCategoryChips: FC<MediumCategoryChipsProps> = ({
 }) => {
   return (
     <div className="chips">
-      {categories.map((category) => (
-        <MediumCategoryChip category={category} />
+      {categories.map((category, index) => (
+        <MediumCategoryChip category={category} key={index} />
       ))}
     </div>
   );

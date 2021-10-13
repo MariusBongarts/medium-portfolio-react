@@ -35,11 +35,15 @@ async function fetchMediumFeed(username: string): Promise<RssFeedResult> {
 export async function getRssFeed(
   username = "mariusbongarts11",
   maxArticles: number
-): Promise<RssFeed> {
+): Promise<RssFeed | null> {
   const { feed, items, status } = await fetchMediumFeed(username);
 
+  if (!feed || status !== "ok") {
+    alert("Pass a valid medium username.");
+    return null;
+  }
   const articles = items
-    .filter((item) => item.thumbnail)
+    ?.filter((item) => item.thumbnail)
     .slice(0, maxArticles)
     .map((item) => {
       return {
@@ -47,10 +51,6 @@ export async function getRssFeed(
         userLink: feed.link,
       };
     });
-
-  if (!feed || status !== "ok") {
-    throw new Error("Pass a valid medium username.");
-  }
 
   return { feed, articles };
 }
