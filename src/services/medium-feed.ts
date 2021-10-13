@@ -26,7 +26,7 @@ export interface RssFeedResult {
 }
 
 async function fetchMediumFeed(username: string): Promise<RssFeedResult> {
-  let mediumUrl = `https://medium.com/feed/@${username}`;
+  const mediumUrl = `https://medium.com/feed/@${username}`;
   return (
     await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${mediumUrl}`)
   ).json();

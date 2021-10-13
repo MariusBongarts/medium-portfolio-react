@@ -2,36 +2,42 @@ import { FC, useEffect, useState } from "react";
 import "./Main.css";
 import { MediumArticles } from "./components/MediumArticles";
 import { MediumHeader } from "./components/MediumHeader";
-import { ChangeUser } from "./components/ChangeUser";
+import { ChangeConfig } from "./components/ChangeConfig";
 import { getRssFeed, RssFeed } from "./services/medium-feed";
 
-interface MainProps {
+export interface MainProps {
   username: string;
   hideHeader?: boolean;
   maxArticles?: number;
 }
 
+export type PortfolioConfig = Required<MainProps>;
+
 const DEFAULT_MAX_ARTICLES = 10;
 
 export const Main: FC<MainProps> = ({ username, hideHeader, maxArticles }) => {
-  const [user, setUser] = useState(username);
+  const [config, setConfig] = useState<PortfolioConfig>({
+    username,
+    hideHeader: hideHeader ?? false,
+    maxArticles: maxArticles ?? DEFAULT_MAX_ARTICLES,
+  });
+
   const [rssFeed, setRssFeed] = useState<RssFeed>();
 
   useEffect(() => {
     const fetchRssFeed = async () =>
-      getRssFeed(user, maxArticles ?? DEFAULT_MAX_ARTICLES);
+      getRssFeed(config.username, config.maxArticles);
 
     fetchRssFeed().then((rssFeed) => rssFeed && setRssFeed(rssFeed));
-  }, [user, maxArticles]);
+  }, [config]);
+
+  const onConfigChange = (config: PortfolioConfig) => setConfig(config);
 
   if (!rssFeed) return <span>Loading...</span>;
 
   return (
     <>
-      <ChangeUser
-        username={username}
-        onChange={(username) => setUser(username)}
-      />
+      <ChangeConfig config={config} onChange={onConfigChange} />
       <div id="medium-portfolio-app">
         {!hideHeader && (
           <MediumHeader title={rssFeed.feed.title} image={rssFeed.feed.image} />
