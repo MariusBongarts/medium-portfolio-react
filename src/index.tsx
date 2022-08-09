@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Main username="mariusbongarts11" />
+    <Main username="mariusbongarts" />
   </React.StrictMode>,
   document.getElementById("root")
 );
